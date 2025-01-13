@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:task_planner/common/enums/task_category.dart';
 import 'package:task_planner/common/enums/task_status.dart';
+import 'package:task_planner/common/extensions/date_extension.dart';
 import 'package:task_planner/common/extensions/time_extension.dart';
+import 'package:task_planner/common/services/reminder_task_notification_service.dart';
 import 'package:task_planner/models/task_model.dart';
 
 import 'package:task_planner/repositories/task_repository.dart';
@@ -32,14 +34,18 @@ class CreateTaskController extends ChangeNotifier {
         id: 0,
         title: title,
         description: description,
-        date: DateTime.now(),
+        date: DateExtension.stringToDate(date),
         startTime: TimeExtension.stringToTime(startTime),
         endTime: TimeExtension.stringToTime(endTime),
-        category: TaskCategory.fromMap(category.text),
+        category: category,
         status: TaskStatus.todo,
       );
 
       createdTask = await taskRepository.createTask(newTask);
+
+      ReminderTaskNotificationService.scheduleDailySummaryNotification(
+        taskRepository,
+      );
 
       message = 'Task ${createdTask!.title} created successfully';
       taskState = CreateTaskState.created;

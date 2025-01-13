@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:task_planner/common/database/config/data_base_config.dart';
 import 'package:task_planner/common/database/connection/sqlite_db_connection.dart';
+import 'package:task_planner/common/services/notification_service.dart';
 import 'package:task_planner/infra/migrations/migration_v1.dart';
 import 'package:task_planner/theme/colors/light_colors.dart';
+
+import 'common/services/background_notification_service.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -26,6 +29,8 @@ class _SplashPageState extends State<SplashPage> {
       version: 1,
       migrations: [MigrationV1()],
     );
+
+    await NotificationService.init();
 
     Navigator.of(context).pushReplacementNamed('/home');
 

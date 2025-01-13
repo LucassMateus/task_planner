@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'package:task_planner/common/database/connection/sqlite_db_connection.dart';
 import 'package:task_planner/common/enums/task_status.dart';
+import 'package:task_planner/common/extensions/date_extension.dart';
 import 'package:task_planner/models/task_model.dart';
 import 'package:task_planner/repositories/task_repository.dart';
 
@@ -22,14 +23,13 @@ class TaskRepositoryImpl implements TaskRepository {
       TaskStatus.done: 0,
     };
 
+    const query = '''
+      SELECT status, count(1)
+      FROM tasks
+      GROUP BY status
+    ''';
     final db = await connection.open();
-
-    final results = await db.rawQuery('''
-                                      Select status
-                                            ,count(1)
-                                      from tasks 
-                                      group by status
-                                          ''');
+    final results = await db.rawQuery(query);
 
     for (final e in results) {
       final status = TaskStatus.fromMap(e['status'] as String);
@@ -80,5 +80,44 @@ class TaskRepositoryImpl implements TaskRepository {
     ''',
       [status.text, taskId],
     );
+  }
+
+  @override
+  Future<List<TaskModel>> getWithFilter(
+      {String? title, TaskStatus? status, DateTime? date}) async {
+    final hasStatus = status != null;
+    final hasDate = date != null;
+    final hasTitle = title != null && title.isNotEmpty;
+
+    final hasFilter = hasStatus || hasDate || hasTitle;
+    final List<Object?> arguments = [];
+
+    final db = await connection.open();
+
+    var query = '''
+      SELECT *
+      FROM tasks
+      WHERE 1 = 1
+    ''';
+
+    if (hasStatus) query += ' AND status = ?';
+    if (hasDate) query += ' AND date = ?';
+    if (hasTitle) query += ' AND title LIKE ?';
+
+    if (hasFilter) {
+      arguments.addAll([
+        if (hasStatus) status.text,
+        if (hasDate) date.toDateString(),
+      ]);
+    }
+
+    final results = await db.rawQuery(
+      query,
+      arguments,
+    );
+
+    final tasks = results.map((task) => TaskModel.fromMap(task)).toList();
+
+    return tasks;
   }
 }

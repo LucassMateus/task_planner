@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/common/database/connection/sqlite_db_connection.dart';
+import 'package:task_planner/common/routes/routes.dart';
+import 'package:task_planner/common/services/notification_service.dart';
 import 'package:task_planner/controllers/create_task_controller.dart';
 import 'package:task_planner/controllers/home_controller.dart';
 import 'package:task_planner/infra/repositories/task_repository_impl.dart';
@@ -13,7 +15,9 @@ import 'package:task_planner/repositories/task_repository.dart';
 import 'package:task_planner/splash_page.dart';
 import 'package:task_planner/theme/colors/light_colors.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: LightColors.kLightYellow,
     statusBarColor: Color(0xffffb969),
@@ -52,18 +56,18 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: '/',
+          initialRoute: Routes.splash,
           onGenerateRoute: (settings) {
             switch (settings.name) {
-              case '/create-task':
+              case Routes.createTask:
                 return MaterialPageRoute<TaskModel>(
                   builder: (context) => const CreateTaskPage(),
                 );
-              case '/home':
+              case Routes.home:
                 return MaterialPageRoute(
                   builder: (context) => const HomePage(),
                 );
-              case '/calendar':
+              case Routes.calendar:
                 return MaterialPageRoute(
                   builder: (context) => const CalendarPage(),
                 );

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:task_planner/common/enums/task_category.dart';
 import 'package:task_planner/common/enums/task_status.dart';
+import 'package:task_planner/common/extensions/date_extension.dart';
 import 'package:task_planner/common/extensions/time_extension.dart';
 
 class TaskModel {
@@ -54,9 +55,9 @@ class TaskModel {
       // 'id': id,
       'title': title,
       'description': description,
-      'date': date.toIso8601String(),
-      'startTime': startTime.timeToString(),
-      'endTime': endTime.timeToString(),
+      'date': date.toDateString(),
+      'startTime': startTime.toTimeString(),
+      'endTime': endTime.toTimeString(),
       'category': category.text,
       'status': status.text,
     };
@@ -67,9 +68,9 @@ class TaskModel {
       id: map['id'] ?? -1,
       title: map['title'] ?? '',
       description: map['description'] ?? '',
-      date: DateTime.parse(map['date']),
-      startTime: TimeExtension.stringToTime(map['startTime'] as String),
-      endTime: TimeExtension.stringToTime(map['endTime'] as String),
+      date: DateExtension.stringToDate(map['date']),
+      startTime: TimeExtension.stringToTime(map['startTime']),
+      endTime: TimeExtension.stringToTime(map['endTime']),
       category: TaskCategory.fromMap(map['category']),
       status: TaskStatus.fromMap(map['status']),
     );
