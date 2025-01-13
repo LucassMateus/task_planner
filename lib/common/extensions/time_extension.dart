@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension TimeExtension on TimeOfDay {
-  String timeToString() {
+  String toTimeString() {
     return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
   }
 

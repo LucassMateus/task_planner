@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_planner/common/widgets/search_widget.dart';
 import 'package:task_planner/common/widgets/task_card.dart';
 import 'package:task_planner/controllers/home_controller.dart';
 import 'package:task_planner/models/task_model.dart';
@@ -100,8 +101,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             TopContainer(
-              // height: 200,
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               width: width,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Sourav Suman',
+                                'Lucas Mateus',
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 22.0,
@@ -211,6 +212,9 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: Divider(thickness: 2),
                     ),
+                    SearchWidget(onSearch: (text, status, date) async {
+                      await controller.filterTasks(text, status, date);
+                    }),
                     Container(
                       color: Colors.transparent,
                       padding: const EdgeInsets.symmetric(

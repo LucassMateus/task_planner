@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:task_planner/common/extensions/date_extension.dart';
 
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
@@ -71,7 +71,7 @@ class _PickerState extends State<Picker> {
     if (newDate != null) {
       _selectedDate = newDate;
       widget.controller
-        ..text = DateFormat.yMMMd().format(_selectedDate!)
+        ..text = _selectedDate!.toDateString()
         ..selection = TextSelection.fromPosition(
           TextPosition(
             offset: widget.controller.text.length,

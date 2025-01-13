@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_planner/common/enums/task_category.dart';
-import 'package:task_planner/common/widgets/date_picker.dart';
+import 'package:task_planner/common/routes/routes.dart';
+import 'package:task_planner/common/services/notification_service.dart';
+import 'package:task_planner/common/services/reminder_task_notification_service.dart';
+import 'package:task_planner/common/widgets/picker.dart';
 import 'package:task_planner/common/widgets/task_category_chip.dart';
 import 'package:task_planner/controllers/create_task_controller.dart';
 import 'package:task_planner/theme/colors/light_colors.dart';
@@ -86,7 +89,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                       Text(
                         'Create new task',
                         style: TextStyle(
-                            fontSize: 30.0, fontWeight: FontWeight.w700),
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),

@@ -12,9 +12,4 @@ class SqliteDbConnection {
   Future<void> close() async => _cnx.closeConnection();
 
   Future<Batch> get getBatch async => (await open()).batch();
-
-  Future<void> applyMigrations() async {
-    await open();
-    await close();
-  }
 }
