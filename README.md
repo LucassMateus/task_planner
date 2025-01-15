@@ -24,10 +24,20 @@ TaskPlanner é um aplicativo de gerenciamento de tarefas projetado para ajudar o
 
 ### **Principais Tecnologias**
 
-**Sqflite:** Persistência de dados local utilizando SQLite.
-**SharedPreferences:** Armazenamento local de configurações simples.
-**flutter_local_notifications:** Implementação de notificações locais para alertar sobre tarefas.
-**ChangeNotifier:** Gerenciamento de estado
+**Sqflite:**  
+Persistência de dados local utilizando SQLite.
+
+**SharedPreferences:**  
+Armazenamento local de configurações simples.
+
+**flutter_local_notifications:**  
+Implementação de notificações locais para alertar sobre tarefas.
+
+**Provider**
+Injeção de dependências
+
+**ChangeNotifier:**  
+Gerenciamento de estado.
 
 ---
 
