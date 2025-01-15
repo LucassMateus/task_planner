@@ -8,6 +8,7 @@ import 'package:task_planner/common/routes/routes.dart';
 import 'package:task_planner/controllers/create_task_controller.dart';
 import 'package:task_planner/controllers/home_controller.dart';
 import 'package:task_planner/controllers/profile_controller.dart';
+import 'package:task_planner/infra/repositories/profile_repository_impl.dart';
 import 'package:task_planner/infra/repositories/task_repository_impl.dart';
 import 'package:task_planner/models/profile_model.dart';
 import 'package:task_planner/models/task_model.dart';
@@ -15,6 +16,7 @@ import 'package:task_planner/pages/calendar_page.dart';
 import 'package:task_planner/pages/create_task_page.dart';
 import 'package:task_planner/pages/edit_profile_page.dart';
 import 'package:task_planner/pages/home_page.dart';
+import 'package:task_planner/repositories/profile_repository.dart';
 import 'package:task_planner/repositories/task_repository.dart';
 import 'package:task_planner/splash_page.dart';
 import 'package:task_planner/common/theme/colors/light_colors.dart';
@@ -42,9 +44,12 @@ class MyApp extends StatelessWidget {
           Provider<TaskRepository>(
             create: (context) => TaskRepositoryImpl(connection: context.read()),
           ),
-          ChangeNotifierProvider(
+          Provider<ProfileRepository>(
             create: (context) =>
-                ProfileController(localStorage: context.read()),
+                ProfileRepositoryImpl(localStorage: context.read()),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ProfileController(repository: context.read()),
           ),
           ChangeNotifierProvider(
             create: (context) => HomeController(taskRepository: context.read()),

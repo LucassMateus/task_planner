@@ -1,18 +1,13 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
-import 'package:task_planner/common/local_storage/local_storage.dart';
 import 'package:task_planner/models/profile_model.dart';
-
-const kProfileStorageKey = 'profile';
+import 'package:task_planner/repositories/profile_repository.dart';
 
 class ProfileController extends ChangeNotifier {
-  ProfileController({required this.localStorage});
+  ProfileController({required this.repository});
 
-  @protected
-  final LocalStorage localStorage;
+  final ProfileRepository repository;
 
   ProfileModel profile = ProfileModel(
     name: 'Your Name',
@@ -20,13 +15,12 @@ class ProfileController extends ChangeNotifier {
   );
 
   Future<void> init() async {
-    final data = await localStorage.getData(kProfileStorageKey);
+    final result = await repository.getProfile();
 
-    if (data != null) {
-      profile = ProfileModel.fromJson(jsonDecode(data));
+    if (result != null) {
+      profile = result;
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 
   Future<void> updateProfile(ProfileModel result) async {
@@ -34,10 +28,7 @@ class ProfileController extends ChangeNotifier {
     profile.occupation = result.occupation;
     profile.imagePath = result.imagePath;
 
-    await localStorage.saveData(
-      kProfileStorageKey,
-      jsonEncode(profile.toJson()),
-    );
+    await repository.updateProfile(profile);
 
     notifyListeners();
   }
