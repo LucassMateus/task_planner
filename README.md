@@ -33,7 +33,7 @@ Armazenamento local de configurações simples.
 **flutter_local_notifications:**  
 Implementação de notificações locais para alertar sobre tarefas.
 
-**Provider:**
+**Provider:**  
 Injeção de dependências.
 
 **ChangeNotifier:**  
