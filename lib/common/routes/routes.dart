@@ -7,4 +7,5 @@ class Routes {
   static const home = '/home';
   static const calendar = '/calendar';
   static const createTask = '/create-task';
+  static const editProfile = '/edit-profile';
 }

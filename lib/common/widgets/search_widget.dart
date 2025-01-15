@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_planner/common/enums/task_status.dart';
 import 'package:task_planner/common/extensions/date_extension.dart';
-import 'package:task_planner/theme/colors/light_colors.dart';
+import 'package:task_planner/common/theme/colors/light_colors.dart';
 
 class SearchWidget extends StatefulWidget {
   final void Function(String, TaskStatus? status, DateTime? date)? onSearch;

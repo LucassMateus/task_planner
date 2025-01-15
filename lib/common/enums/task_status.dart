@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_planner/theme/colors/light_colors.dart';
+import 'package:task_planner/common/theme/colors/light_colors.dart';
 
 enum TaskStatus {
   todo('To Do', Icons.alarm, LightColors.kRed),

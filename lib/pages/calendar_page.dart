@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_planner/common/dates_list.dart';
-import 'package:task_planner/theme/colors/light_colors.dart';
+import 'package:task_planner/common/theme/colors/light_colors.dart';
 import 'package:task_planner/common/widgets/back_button.dart';
 import 'package:task_planner/common/widgets/calendar_dates.dart';
 import 'package:task_planner/common/widgets/task_container.dart';

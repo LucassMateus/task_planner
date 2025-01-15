@@ -108,6 +108,7 @@ class TaskRepositoryImpl implements TaskRepository {
       arguments.addAll([
         if (hasStatus) status.text,
         if (hasDate) date.toDateString(),
+        if (hasTitle) '%$title%',
       ]);
     }
 

@@ -34,9 +34,9 @@ class ReminderTaskNotificationService {
     TaskRepository taskRepository,
   ) async {
     final now = DateTime.now();
-    final bool isBeforeTheDailySummaryTime =
-        kDebugMode ? true : now.hour < dailySummaryTime;
-    // final bool isBeforeTheDailySummaryTime = now.hour < dailySummaryTime;
+    final bool isBeforeTheDailySummaryTime = kDebugMode //
+        ? true
+        : now.hour < dailySummaryTime;
 
     final day = isBeforeTheDailySummaryTime ? now.day : now.day + 1;
     final morningNotificationTime = DateTime(
